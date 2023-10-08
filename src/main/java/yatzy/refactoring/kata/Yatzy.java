@@ -52,23 +52,23 @@ public class Yatzy {
     }
 
     public int scorePair() {
-        int[] counts = talliesSides();
-        for (int i = 0; i != 6; i++) {
-            if (counts[6 - i - 1] >= 2) {
-                return (6 - i) * 2;
+        int[] tallies = talliesSides();
+        for (int i = tallies.length - 1; i >= 0; i--) {
+            if (tallies[i] >= 2) {
+                return 2 * (i + 1);
             }
         }
         return 0;
     }
 
     public int twoPair() {
-        int[] counts = talliesSides();
+        int[] tallies = talliesSides();
         int n = 0;
         int score = 0;
-        for (int i = 0; i < 6; i += 1) {
-            if (counts[6 - i - 1] >= 2) {
+        for (int i = tallies.length - 1; i >= 0; i--) {
+            if (tallies[i] >= 2) {
                 n++;
-                score += (6 - i);
+                score += (i + 1);
             }
         }
         if (n == 2) {
@@ -145,11 +145,9 @@ public class Yatzy {
 
     private int[] talliesSides() {
         int[] tallies = new int[6];
-        tallies[dice[0] - 1]++;
-        tallies[dice[1] - 1]++;
-        tallies[dice[2] - 1]++;
-        tallies[dice[3] - 1]++;
-        tallies[dice[4] - 1]++;
+        for (int die : dice) {
+            tallies[die - 1]++;
+        }
         return tallies;
     }
 }
