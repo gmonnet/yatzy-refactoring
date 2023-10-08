@@ -68,13 +68,6 @@ public class Yatzy {
         return 0;
     }
 
-    public int fourOfAKind() {
-        return findHighestOccurences(4)
-            .findFirst()
-            .map(die -> die * 4)
-            .orElse(0);
-    }
-
     public int threeOfAKind() {
         return findHighestOccurences(3)
             .findFirst()
@@ -82,17 +75,24 @@ public class Yatzy {
             .orElse(0);
     }
 
+    public int fourOfAKind() {
+        return findHighestOccurences(4)
+            .findFirst()
+            .map(die -> die * 4)
+            .orElse(0);
+    }
+
     public int smallStraight() {
-        int[] tallies = talliesSides();
-        if (tallies[0] == 1 && tallies[1] == 1 && tallies[2] == 1 && tallies[3] == 1 && tallies[4] == 1) {
+        int[] sortedUniqueDice = Arrays.stream(dice).sorted().distinct().toArray();
+        if (sortedUniqueDice.length == 5 && sortedUniqueDice[0] == 1) {
             return 15;
         }
         return 0;
     }
 
     public int largeStraight() {
-        int[] tallies = talliesSides();
-        if (tallies[1] == 1 && tallies[2] == 1 && tallies[3] == 1 && tallies[4] == 1 && tallies[5] == 1) {
+        int[] sortedUniqueDice = Arrays.stream(dice).sorted().distinct().toArray();
+        if (sortedUniqueDice.length == 5 && sortedUniqueDice[0] == 2) {
             return 20;
         }
         return 0;
