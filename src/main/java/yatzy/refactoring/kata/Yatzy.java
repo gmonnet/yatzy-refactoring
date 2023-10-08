@@ -2,6 +2,17 @@ package yatzy.refactoring.kata;
 
 public class Yatzy {
 
+    protected int[] dice;
+
+    public Yatzy(int d1, int d2, int d3, int d4, int _5) {
+        dice = new int[5];
+        dice[0] = d1;
+        dice[1] = d2;
+        dice[2] = d3;
+        dice[3] = d4;
+        dice[4] = _5;
+    }
+
     public int chance() {
         int total = 0;
         total += dice[0];
@@ -57,17 +68,6 @@ public class Yatzy {
         return s;
     }
 
-    protected int[] dice;
-
-    public Yatzy(int d1, int d2, int d3, int d4, int _5) {
-        dice = new int[5];
-        dice[0] = d1;
-        dice[1] = d2;
-        dice[2] = d3;
-        dice[3] = d4;
-        dice[4] = _5;
-    }
-
     public int fours() {
         int sum;
         sum = 0;
@@ -100,7 +100,7 @@ public class Yatzy {
         return sum;
     }
 
-    public int score_pair() {
+    public int scorePair() {
         int[] counts = new int[6];
         counts[dice[0] - 1]++;
         counts[dice[1] - 1]++;
@@ -116,7 +116,7 @@ public class Yatzy {
         return 0;
     }
 
-    public int two_pair() {
+    public int twoPair() {
         int[] counts = new int[6];
         counts[dice[0] - 1]++;
         counts[dice[1] - 1]++;
@@ -136,7 +136,7 @@ public class Yatzy {
         } else return 0;
     }
 
-    public int four_of_a_kind() {
+    public int fourOfAKind() {
         int[] tallies;
         tallies = new int[6];
         tallies[dice[0] - 1]++;
@@ -152,7 +152,7 @@ public class Yatzy {
         return 0;
     }
 
-    public int three_of_a_kind() {
+    public int threeOfAKind() {
         int[] t;
         t = new int[6];
         t[dice[0] - 1]++;
