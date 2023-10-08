@@ -99,29 +99,16 @@ public class Yatzy {
     }
 
     public int fullHouse() {
-        boolean hasPair = false;
-        int pairAt = 0;
-        boolean hasTriple = false;
-        int tripleAt = 0;
+        List<Integer> triples = findHighestOccurences(3)
+            .toList();
+        List<Integer> pairs = findHighestOccurences(2)
+            .filter(integer -> !triples.contains(integer))
+            .toList();
 
-        int[] tallies = talliesSides();
-
-        for (int i = 0; i < tallies.length; i++) {
-            if (tallies[i] == 2) {
-                hasPair = true;
-                pairAt = i + 1;
-            }
-            if (tallies[i] == 3) {
-                hasTriple = true;
-                tripleAt = i + 1;
-            }
+        if (!triples.isEmpty() && !pairs.isEmpty()) {
+            return 3 * triples.get(0) + 2 * pairs.get(0);
         }
-
-        if (hasPair && hasTriple) {
-            return pairAt * 2 + tripleAt * 3;
-        } else {
-            return 0;
-        }
+        return 0;
     }
 
     private int sumSames(Integer value) {
