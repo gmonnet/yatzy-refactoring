@@ -20,16 +20,11 @@ public class Yatzy {
     }
 
     public int yatzy() {
-        int[] counts = new int[6];
-        for (int die : dice) {
-            counts[die - 1]++;
+        if (Arrays.stream(dice).allMatch(value -> dice[0] == value)) {
+            return 50;
+        } else {
+            return 0;
         }
-        for (int i = 0; i != 6; i++) {
-            if (counts[i] == 5) {
-                return 50;
-            }
-        }
-        return 0;
     }
 
     public int ones() {
