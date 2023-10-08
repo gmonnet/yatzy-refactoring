@@ -1,4 +1,4 @@
-package yatzy.refactoring.kata;
+package com.gmonnet.yatzy;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

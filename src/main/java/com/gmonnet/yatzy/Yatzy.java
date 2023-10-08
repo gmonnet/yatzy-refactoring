@@ -1,4 +1,4 @@
-package yatzy.refactoring.kata;
+package com.gmonnet.yatzy;
 
 import java.util.Arrays;
 
