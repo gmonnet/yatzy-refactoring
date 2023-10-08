@@ -4,13 +4,13 @@ public class Yatzy {
 
     protected int[] dice;
 
-    public Yatzy(int d1, int d2, int d3, int d4, int _5) {
+    public Yatzy(int d1, int d2, int d3, int d4, int d5) {
         dice = new int[5];
         dice[0] = d1;
         dice[1] = d2;
         dice[2] = d3;
         dice[3] = d4;
-        dice[4] = _5;
+        dice[4] = d5;
     }
 
     public int chance() {
@@ -58,19 +58,17 @@ public class Yatzy {
     }
 
     public int threes() {
-        int s;
-        s = 0;
-        if (dice[0] == 3) s += 3;
-        if (dice[1] == 3) s += 3;
-        if (dice[2] == 3) s += 3;
-        if (dice[3] == 3) s += 3;
-        if (dice[4] == 3) s += 3;
-        return s;
+        int sum = 0;
+        if (dice[0] == 3) sum += 3;
+        if (dice[1] == 3) sum += 3;
+        if (dice[2] == 3) sum += 3;
+        if (dice[3] == 3) sum += 3;
+        if (dice[4] == 3) sum += 3;
+        return sum;
     }
 
     public int fours() {
-        int sum;
-        sum = 0;
+        int sum = 0;
         for (int at = 0; at != 5; at++) {
             if (dice[at] == 4) {
                 sum += 4;
@@ -80,20 +78,19 @@ public class Yatzy {
     }
 
     public int fives() {
-        int s = 0;
-        int i;
-        for (i = 0; i < dice.length; i++) {
+        int sum = 0;
+        for (int i = 0; i < dice.length; i++) {
             if (dice[i] == 5) {
-                s = s + 5;
+                sum = sum + 5;
             }
         }
-        return s;
+        return sum;
     }
 
     public int sixes() {
         int sum = 0;
-        for (int at = 0; at < dice.length; at++) {
-            if (dice[at] == 6) {
+        for (int i = 0; i < dice.length; i++) {
+            if (dice[i] == 6) {
                 sum = sum + 6;
             }
         }
@@ -107,10 +104,9 @@ public class Yatzy {
         counts[dice[2] - 1]++;
         counts[dice[3] - 1]++;
         counts[dice[4] - 1]++;
-        int at;
-        for (at = 0; at != 6; at++) {
-            if (counts[6 - at - 1] >= 2) {
-                return (6 - at) * 2;
+        for (int i = 0; i != 6; i++) {
+            if (counts[6 - i - 1] >= 2) {
+                return (6 - i) * 2;
             }
         }
         return 0;
@@ -133,12 +129,12 @@ public class Yatzy {
         }
         if (n == 2) {
             return score * 2;
-        } else return 0;
+        }
+        return 0;
     }
 
     public int fourOfAKind() {
-        int[] tallies;
-        tallies = new int[6];
+        int[] tallies = new int[6];
         tallies[dice[0] - 1]++;
         tallies[dice[1] - 1]++;
         tallies[dice[2] - 1]++;
@@ -153,15 +149,14 @@ public class Yatzy {
     }
 
     public int threeOfAKind() {
-        int[] t;
-        t = new int[6];
-        t[dice[0] - 1]++;
-        t[dice[1] - 1]++;
-        t[dice[2] - 1]++;
-        t[dice[3] - 1]++;
-        t[dice[4] - 1]++;
+        int[] tallies = new int[6];
+        tallies[dice[0] - 1]++;
+        tallies[dice[1] - 1]++;
+        tallies[dice[2] - 1]++;
+        tallies[dice[3] - 1]++;
+        tallies[dice[4] - 1]++;
         for (int i = 0; i < 6; i++) {
-            if (t[i] >= 3) {
+            if (tallies[i] >= 3) {
                 return (i + 1) * 3;
             }
         }
@@ -169,8 +164,7 @@ public class Yatzy {
     }
 
     public int smallStraight() {
-        int[] tallies;
-        tallies = new int[6];
+        int[] tallies = new int[6];
         tallies[dice[0] - 1] += 1;
         tallies[dice[1] - 1] += 1;
         tallies[dice[2] - 1] += 1;
