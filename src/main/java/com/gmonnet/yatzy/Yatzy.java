@@ -1,6 +1,8 @@
 package com.gmonnet.yatzy;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class Yatzy {
 
@@ -52,49 +54,32 @@ public class Yatzy {
     }
 
     public int scorePair() {
-        int[] tallies = talliesSides();
-        for (int i = tallies.length - 1; i >= 0; i--) {
-            if (tallies[i] >= 2) {
-                return 2 * (i + 1);
-            }
-        }
-        return 0;
+        return findHighestOccurences(2)
+            .findFirst()
+            .map(die -> die * 2)
+            .orElse(0);
     }
 
     public int twoPair() {
-        int[] tallies = talliesSides();
-        int n = 0;
-        int score = 0;
-        for (int i = tallies.length - 1; i >= 0; i--) {
-            if (tallies[i] >= 2) {
-                n++;
-                score += (i + 1);
-            }
-        }
-        if (n == 2) {
-            return score * 2;
+        List<Integer> occurences = findHighestOccurences(2).toList();
+        if (occurences.size() >= 2) {
+            return 2 * (occurences.get(0) + occurences.get(1));
         }
         return 0;
     }
 
     public int fourOfAKind() {
-        int[] tallies = talliesSides();
-        for (int i = 0; i < 6; i++) {
-            if (tallies[i] >= 4) {
-                return (i + 1) * 4;
-            }
-        }
-        return 0;
+        return findHighestOccurences(4)
+            .findFirst()
+            .map(die -> die * 4)
+            .orElse(0);
     }
 
     public int threeOfAKind() {
-        int[] tallies = talliesSides();
-        for (int i = 0; i < 6; i++) {
-            if (tallies[i] >= 3) {
-                return (i + 1) * 3;
-            }
-        }
-        return 0;
+        return findHighestOccurences(3)
+            .findFirst()
+            .map(die -> die * 3)
+            .orElse(0);
     }
 
     public int smallStraight() {
@@ -149,6 +134,11 @@ public class Yatzy {
             tallies[die - 1]++;
         }
         return tallies;
+    }
+
+    private Stream<Integer> findHighestOccurences(int nbOccurence) {
+        return Stream.of(6, 5, 4, 3, 2, 1)
+            .filter(value -> Arrays.stream(dice).filter(die -> die == value).count() >= nbOccurence);
     }
 }
 
