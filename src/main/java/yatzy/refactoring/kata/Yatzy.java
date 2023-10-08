@@ -1,5 +1,7 @@
 package yatzy.refactoring.kata;
 
+import java.util.Arrays;
+
 public class Yatzy {
 
     protected int[] dice;
@@ -37,64 +39,27 @@ public class Yatzy {
     }
 
     public int ones() {
-        int sum = 0;
-        if (dice[0] == 1) sum++;
-        if (dice[1] == 1) sum++;
-        if (dice[2] == 1) sum++;
-        if (dice[3] == 1) sum++;
-        if (dice[4] == 1) sum++;
-
-        return sum;
+        return sumSames(1);
     }
 
     public int twos() {
-        int sum = 0;
-        if (dice[0] == 2) sum += 2;
-        if (dice[1] == 2) sum += 2;
-        if (dice[2] == 2) sum += 2;
-        if (dice[3] == 2) sum += 2;
-        if (dice[4] == 2) sum += 2;
-        return sum;
+        return sumSames(2);
     }
 
     public int threes() {
-        int sum = 0;
-        if (dice[0] == 3) sum += 3;
-        if (dice[1] == 3) sum += 3;
-        if (dice[2] == 3) sum += 3;
-        if (dice[3] == 3) sum += 3;
-        if (dice[4] == 3) sum += 3;
-        return sum;
+        return sumSames(3);
     }
 
     public int fours() {
-        int sum = 0;
-        for (int at = 0; at != 5; at++) {
-            if (dice[at] == 4) {
-                sum += 4;
-            }
-        }
-        return sum;
+        return sumSames(4);
     }
 
     public int fives() {
-        int sum = 0;
-        for (int i = 0; i < dice.length; i++) {
-            if (dice[i] == 5) {
-                sum = sum + 5;
-            }
-        }
-        return sum;
+        return sumSames(5);
     }
 
     public int sixes() {
-        int sum = 0;
-        for (int i = 0; i < dice.length; i++) {
-            if (dice[i] == 6) {
-                sum = sum + 6;
-            }
-        }
-        return sum;
+        return sumSames(6);
     }
 
     public int scorePair() {
@@ -223,6 +188,10 @@ public class Yatzy {
         } else {
             return 0;
         }
+    }
+
+    private int sumSames(Integer value) {
+        return Arrays.stream(dice).filter(value::equals).sum();
     }
 }
 
