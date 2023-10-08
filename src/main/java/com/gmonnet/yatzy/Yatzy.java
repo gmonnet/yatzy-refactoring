@@ -54,10 +54,7 @@ public class Yatzy {
     }
 
     public int scorePair() {
-        return findHighestOccurences(2)
-            .findFirst()
-            .map(die -> die * 2)
-            .orElse(0);
+        return scoresOccurences(2);
     }
 
     public int twoPair() {
@@ -69,30 +66,22 @@ public class Yatzy {
     }
 
     public int threeOfAKind() {
-        return findHighestOccurences(3)
-            .findFirst()
-            .map(die -> die * 3)
-            .orElse(0);
+        return scoresOccurences(3);
     }
 
     public int fourOfAKind() {
-        return findHighestOccurences(4)
-            .findFirst()
-            .map(die -> die * 4)
-            .orElse(0);
+        return scoresOccurences(4);
     }
 
     public int smallStraight() {
-        int[] sortedUniqueDice = Arrays.stream(dice).sorted().distinct().toArray();
-        if (sortedUniqueDice.length == 5 && sortedUniqueDice[0] == 1) {
+        if (isStraightStartingWith(1)) {
             return 15;
         }
         return 0;
     }
 
     public int largeStraight() {
-        int[] sortedUniqueDice = Arrays.stream(dice).sorted().distinct().toArray();
-        if (sortedUniqueDice.length == 5 && sortedUniqueDice[0] == 2) {
+        if (isStraightStartingWith(2)) {
             return 20;
         }
         return 0;
@@ -115,17 +104,21 @@ public class Yatzy {
         return Arrays.stream(dice).filter(value::equals).sum();
     }
 
-    private int[] talliesSides() {
-        int[] tallies = new int[6];
-        for (int die : dice) {
-            tallies[die - 1]++;
-        }
-        return tallies;
-    }
-
     private Stream<Integer> findHighestOccurences(int nbOccurence) {
         return Stream.of(6, 5, 4, 3, 2, 1)
             .filter(value -> Arrays.stream(dice).filter(die -> die == value).count() >= nbOccurence);
+    }
+
+    private int scoresOccurences(int nbOccurence) {
+        return findHighestOccurences(nbOccurence)
+            .findFirst()
+            .map(die -> die * nbOccurence)
+            .orElse(0);
+    }
+
+    private boolean isStraightStartingWith(int starting) {
+        int[] sortedUniqueDice = Arrays.stream(dice).sorted().distinct().toArray();
+        return sortedUniqueDice.length == 5 && sortedUniqueDice[0] == starting;
     }
 }
 
