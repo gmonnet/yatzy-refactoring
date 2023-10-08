@@ -1,109 +1,164 @@
 package yatzy.refactoring.kata;
 
-import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class YatzyTest {
+class YatzyTest {
 
-    @Test
-    public void chance_scores_sum_of_all_dice() {
-        assertEquals(15, new Yatzy(2, 3, 4, 5, 1).chance());
-        assertEquals(16, new Yatzy(3, 3, 4, 5, 1).chance());
+    @ParameterizedTest(name = "chance should return {5}")
+    @CsvSource({
+        "2, 3, 4, 5, 1, 15",
+        "3, 3, 4, 5, 1, 16"
+    })
+    void test_chance(int d1, int d2, int d3, int d4, int d5, int expected) {
+        assertEquals(expected, new Yatzy(d1, d2, d3, d4, d5).chance());
     }
 
-    @Test
-    public void yatzy_scores_50() {
-        assertEquals(50, new Yatzy(4, 4, 4, 4, 4).yatzy());
-        assertEquals(50, new Yatzy(6, 6, 6, 6, 6).yatzy());
-        assertEquals(0, new Yatzy(6, 6, 6, 6, 3).yatzy());
+    @ParameterizedTest(name = "yatzy should return {5}")
+    @CsvSource({
+        "4, 4, 4, 4, 4, 50",
+        "6, 6, 6, 6, 6, 50",
+        "6, 6, 6, 6, 3, 0"
+    })
+    void test_yatzy(int d1, int d2, int d3, int d4, int d5, int expected) {
+        assertEquals(expected, new Yatzy(d1, d2, d3, d4, d5).yatzy());
     }
 
-    @Test
-    public void test_1s() {
-        assertEquals(1, new Yatzy(1, 2, 3, 4, 5).ones());
-        assertEquals(2, new Yatzy(1, 2, 1, 4, 5).ones());
-        assertEquals(0, new Yatzy(6, 2, 2, 4, 5).ones());
-        assertEquals(4, new Yatzy(1, 2, 1, 1, 1).ones());
+    @ParameterizedTest(name = "ones should return {5}")
+    @CsvSource({
+        "1, 2, 3, 4, 5, 1",
+        "1, 2, 1, 4, 5, 2",
+        "6, 2, 2, 4, 5, 0",
+        "1, 2, 1, 1, 1, 4"
+    })
+    void test_ones(int d1, int d2, int d3, int d4, int d5, int expected) {
+        assertEquals(expected, new Yatzy(d1, d2, d3, d4, d5).ones());
     }
 
-    @Test
-    public void test_2s() {
-        assertEquals(4, new Yatzy(1, 2, 3, 2, 6).twos());
-        assertEquals(10, new Yatzy(2, 2, 2, 2, 2).twos());
+    @ParameterizedTest(name = "twos should return {5}")
+    @CsvSource({
+        "1, 2, 3, 2, 6, 4",
+        "2, 2, 2, 2, 2, 10"
+    })
+    void test_twos(int d1, int d2, int d3, int d4, int d5, int expected) {
+        assertEquals(expected, new Yatzy(d1, d2, d3, d4, d5).twos());
     }
 
-    @Test
-    public void test_threes() {
-        assertEquals(6, new Yatzy(1, 2, 3, 2, 3).threes());
-        assertEquals(12, new Yatzy(2, 3, 3, 3, 3).threes());
+
+    @ParameterizedTest(name = "threes should return {5}")
+    @CsvSource({
+        "1, 2, 3, 2, 3, 6",
+        "2, 3, 3, 3, 3, 12"
+    })
+    void test_threes(int d1, int d2, int d3, int d4, int d5, int expected) {
+        assertEquals(expected, new Yatzy(d1, d2, d3, d4, d5).threes());
     }
 
-    @Test
-    public void fours_test() {
-        assertEquals(12, new Yatzy(4, 4, 4, 5, 5).fours());
-        assertEquals(8, new Yatzy(4, 4, 5, 5, 5).fours());
-        assertEquals(4, new Yatzy(4, 5, 5, 5, 5).fours());
+
+    @ParameterizedTest(name = "fours should return {5}")
+    @CsvSource({
+        "4, 4, 4, 5, 5, 12",
+        "4, 4, 5, 5, 5, 8",
+        "4, 5, 5, 5, 5, 4"
+    })
+    void test_fours(int d1, int d2, int d3, int d4, int d5, int expected) {
+        assertEquals(expected, new Yatzy(d1, d2, d3, d4, d5).fours());
     }
 
-    @Test
-    public void fives() {
-        assertEquals(10, new Yatzy(4, 4, 4, 5, 5).fives());
-        assertEquals(15, new Yatzy(4, 4, 5, 5, 5).fives());
-        assertEquals(20, new Yatzy(4, 5, 5, 5, 5).fives());
+
+    @ParameterizedTest(name = "fives should return {5}")
+    @CsvSource({
+        "4, 4, 4, 5, 5, 10",
+        "4, 4, 5, 5, 5, 15",
+        "4, 5, 5, 5, 5, 20"
+    })
+    void test_fives(int d1, int d2, int d3, int d4, int d5, int expected) {
+        assertEquals(expected, new Yatzy(d1, d2, d3, d4, d5).fives());
     }
 
-    @Test
-    public void sixes_test() {
-        assertEquals(0, new Yatzy(4, 4, 4, 5, 5).sixes());
-        assertEquals(6, new Yatzy(4, 4, 6, 5, 5).sixes());
-        assertEquals(18, new Yatzy(6, 5, 6, 6, 5).sixes());
+
+    @ParameterizedTest(name = "sixes should return {5}")
+    @CsvSource({
+        "4, 4, 4, 5, 5, 0",
+        "4, 4, 6, 5, 5, 6",
+        "6, 5, 6, 6, 5, 18"
+    })
+    void test_sixes(int d1, int d2, int d3, int d4, int d5, int expected) {
+        assertEquals(expected, new Yatzy(d1, d2, d3, d4, d5).sixes());
     }
 
-    @Test
-    public void one_pair() {
-        assertEquals(6, new Yatzy(3, 4, 3, 5, 6).scorePair());
-        assertEquals(10, new Yatzy(5, 3, 3, 3, 5).scorePair());
-        assertEquals(12, new Yatzy(5, 3, 6, 6, 5).scorePair());
+
+    @ParameterizedTest(name = "scorePair should return {5}")
+    @CsvSource({
+        "3, 4, 3, 5, 6,  6",
+        "5, 3, 3, 3, 5, 10",
+        "5, 3, 6, 6, 5, 12"
+    })
+    void test_scorePair(int d1, int d2, int d3, int d4, int d5, int expected) {
+        assertEquals(expected, new Yatzy(d1, d2, d3, d4, d5).scorePair());
     }
 
-    @Test
-    public void two_Pair() {
-        assertEquals(16, new Yatzy(3, 3, 5, 4, 5).twoPair());
-        assertEquals(16, new Yatzy(3, 3, 5, 5, 5).twoPair());
+    @ParameterizedTest(name = "twoPair should return {5}")
+    @CsvSource({
+        "3, 3, 5, 4, 5, 16",
+        "3, 3, 5, 5, 5, 16"
+    })
+    void test_twoPair(int d1, int d2, int d3, int d4, int d5, int expected) {
+        assertEquals(expected, new Yatzy(d1, d2, d3, d4, d5).twoPair());
     }
 
-    @Test
-    public void three_of_a_kind() {
-        assertEquals(9, new Yatzy(3, 3, 3, 4, 5).threeOfAKind());
-        assertEquals(15, new Yatzy(5, 3, 5, 4, 5).threeOfAKind());
-        assertEquals(9, new Yatzy(3, 3, 3, 3, 5).threeOfAKind());
+
+    @ParameterizedTest(name = "threeOfAKind should return {5}")
+    @CsvSource({
+        "3, 3, 3, 4, 5, 9",
+        "5, 3, 5, 4, 5, 15",
+        "3, 3, 3, 3, 5, 9"
+    })
+    void test_threeOfAKind(int d1, int d2, int d3, int d4, int d5, int expected) {
+        assertEquals(expected, new Yatzy(d1, d2, d3, d4, d5).threeOfAKind());
     }
 
-    @Test
-    public void four_of_a_knd() {
-        assertEquals(12, new Yatzy(3, 3, 3, 3, 5).fourOfAKind());
-        assertEquals(20, new Yatzy(5, 5, 5, 4, 5).fourOfAKind());
-        assertEquals(9, new Yatzy(3, 3, 3, 3, 3).threeOfAKind());
+    @ParameterizedTest(name = "fourOfAKind should return {5}")
+    @CsvSource({
+        "3, 3, 3, 3, 5, 12",
+        "5, 5, 5, 4, 5, 20",
+        "3, 3, 3, 3, 3, 12"
+    })
+    void test_fourOfAKind(int d1, int d2, int d3, int d4, int d5, int expected) {
+        assertEquals(expected, new Yatzy(d1, d2, d3, d4, d5).fourOfAKind());
     }
 
-    @Test
-    public void smallStraight() {
-        assertEquals(15, new Yatzy(1, 2, 3, 4, 5).smallStraight());
-        assertEquals(15, new Yatzy(2, 3, 4, 5, 1).smallStraight());
-        assertEquals(0, new Yatzy(1, 2, 2, 4, 5).smallStraight());
+
+    @ParameterizedTest(name = "smallStraight should return {5}")
+    @CsvSource({
+        "1, 2, 3, 4, 5, 15",
+        "2, 3, 4, 5, 1, 15",
+        "1, 2, 2, 4, 5, 0"
+    })
+    void test_smallStraight(int d1, int d2, int d3, int d4, int d5, int expected) {
+        assertEquals(expected, new Yatzy(d1, d2, d3, d4, d5).smallStraight());
     }
 
-    @Test
-    public void largeStraight() {
-        assertEquals(20, new Yatzy(6, 2, 3, 4, 5).largeStraight());
-        assertEquals(20, new Yatzy(2, 3, 4, 5, 6).largeStraight());
-        assertEquals(0, new Yatzy(1, 2, 2, 4, 5).largeStraight());
+
+    @ParameterizedTest(name = "largeStraight should return {5}")
+    @CsvSource({
+        "6, 2, 3, 4, 5, 20",
+        "2, 3, 4, 5, 6, 20",
+        "1, 2, 2, 4, 5, 0"
+    })
+    void test_largeStraight(int d1, int d2, int d3, int d4, int d5, int expected) {
+        assertEquals(expected, new Yatzy(d1, d2, d3, d4, d5).largeStraight());
     }
 
-    @Test
-    public void fullHouse() {
-        assertEquals(18, new Yatzy(6, 2, 2, 2, 6).fullHouse());
-        assertEquals(0, new Yatzy(2, 3, 4, 5, 6).fullHouse());
+
+    @ParameterizedTest(name = "fullHouse should return {5}")
+    @CsvSource({
+        "6, 2, 2, 2, 6, 18",
+        "2, 3, 4, 5, 6, 0"
+    })
+    void test_fullHouse(int d1, int d2, int d3, int d4, int d5, int expected) {
+        assertEquals(expected, new Yatzy(d1, d2, d3, d4, d5).fullHouse());
     }
 }
